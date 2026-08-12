@@ -1,0 +1,16 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+dist/
+.vscode/
+.idea/
+*.log
+
+# Dataset files
+Dataset/creditcard.csv
+
+Dataset/
