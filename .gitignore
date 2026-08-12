@@ -14,3 +14,4 @@ dist/
 Dataset/creditcard.csv
 
 Dataset/
+data/processed/
