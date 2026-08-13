@@ -6,3 +6,5 @@ tabulate
 pytest
 scikit-learn
 joblib
+matplotlib
+seaborn
