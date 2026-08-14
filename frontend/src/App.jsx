@@ -1,9 +1,12 @@
+import React from 'react';
+import Dashboard from './components/Dashboard';
+
 function App() {
   return (
-    <div>
-      <h1>Frontend scaffold is running!</h1>
+    <div className="app">
+      <Dashboard />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
