@@ -9,6 +9,8 @@ dist/
 .vscode/
 .idea/
 *.log
+playwright-report/
+test-results/
 
 # Dataset files
 Dataset/creditcard.csv

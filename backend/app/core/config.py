@@ -14,6 +14,10 @@ class AppConfig:
         self.model_artifact = config.get("model_artifact")
         self.feature_columns = config.get("feature_columns")
         
+        # Read CORS from OS environment
+        cors_env = os.environ.get("BACKEND_CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+        self.cors_origins = [origin.strip() for origin in cors_env.split(",") if origin.strip()]
+        
         self._validate()
         
     def _validate(self):
