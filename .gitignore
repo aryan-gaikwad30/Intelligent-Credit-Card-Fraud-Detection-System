@@ -17,4 +17,6 @@ Dataset/creditcard.csv
 
 Dataset/
 data/processed/
-models/
+models/*
+!models/final_model_config.json
+!models/xgboost_baseline.joblib

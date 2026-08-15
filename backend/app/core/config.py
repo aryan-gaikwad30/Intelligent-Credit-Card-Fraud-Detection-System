@@ -1,5 +1,6 @@
 import json
 import os
+import hashlib
 
 class AppConfig:
     def __init__(self, config_path="models/final_model_config.json"):
@@ -13,6 +14,7 @@ class AppConfig:
         self.threshold = config.get("threshold")
         self.model_artifact = config.get("model_artifact")
         self.feature_columns = config.get("feature_columns")
+        self.expected_model_hash = config.get("model_hash")
         
         # Read CORS from OS environment
         cors_env = os.environ.get("BACKEND_CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
@@ -36,5 +38,20 @@ class AppConfig:
             
         if not self.feature_columns or not isinstance(self.feature_columns, list):
             raise ValueError("Invalid or missing feature_columns in config.")
+            
+        if not self.expected_model_hash:
+            raise ValueError("Invalid config: expected 'model_hash' key for integrity verification.")
+            
+        self._verify_model_integrity()
+
+    def _verify_model_integrity(self):
+        sha256_hash = hashlib.sha256()
+        with open(self.model_artifact, "rb") as f:
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha256_hash.update(byte_block)
+        actual_hash = sha256_hash.hexdigest()
+        
+        if actual_hash != self.expected_model_hash:
+            raise RuntimeError(f"Model integrity failure: expected hash {self.expected_model_hash}, got {actual_hash}")
 
 config = AppConfig()
